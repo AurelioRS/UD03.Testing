@@ -48,7 +48,6 @@ public class TestAccount {
 	@Test
 	public void testToString() {
 		assertEquals(1234567890 + "\t" + "Pepe" + "\t" + n.format(10.5f), a.toString());	
-		System.out.println(a.toString());
 	}
 	
 }
