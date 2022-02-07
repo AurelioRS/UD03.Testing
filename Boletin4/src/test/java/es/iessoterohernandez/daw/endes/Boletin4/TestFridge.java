@@ -2,23 +2,53 @@ package es.iessoterohernandez.daw.endes.Boletin4;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 public class TestFridge {
 
-	@Before
-	public void setUp() throws Exception {
+	@ParameterizedTest(name = "testPut")
+	@CsvSource({ "milk, true",
+		"apple, true",
+		"meat, true",
+		"orange, true" })
+
+
+	public void testPut(String item, boolean b) {
+		Fridge f = new Fridge();
+		
+		assertEquals(b, f.put(item));
+
 	}
 
-	@After
-	public void tearDown() throws Exception {
+	@ParameterizedTest(name = "testContains")
+	@CsvSource({ "milk, false",
+		"apple, false",
+		"meat, false",
+		"orange, false" })
+	
+	
+
+	public void testContains(String item, boolean b) {
+		Fridge f = new Fridge();
+		
+		assertEquals(b, f.contains(item));
 	}
 
-	@Test
-	public void test() {
-		fail("Not yet implemented");
+	@ParameterizedTest(name = "testTake")
+	@CsvSource({ "milk, true",
+		"apple, true",
+		"meat, false",
+		"orange, true" })
+	
+	public void testTake(String item, boolean b) throws NoSuchItemException{
+		Fridge f = new Fridge();
+		f.put(item);
+		
+		try {
+			f.take(item);
+		} catch (NoSuchItemException e) {
+			fail(item + " item not found.");
+		}
 	}
-
 }
